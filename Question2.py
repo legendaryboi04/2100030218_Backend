@@ -12,12 +12,17 @@ mycursor = mydb.cursor()
 
 
 query = """
-SELECT l.location_id,
-       l.street_address,
-       l.city,
-       l.state_province,
-       (CASE WHEN l.country_id = 'CA' THEN (SELECT country_name FROM countries WHERE country_id = 'CA') ELSE NULL END) AS country_name
-FROM locations l;
+SELECT 
+    location_id,
+    street_address,
+    city,
+    state_province,
+    (SELECT country_name FROM countries WHERE country_id = 'CA') AS country_name
+FROM 
+    locations
+WHERE 
+    country_id = 'CA';
+
 
 """
 
